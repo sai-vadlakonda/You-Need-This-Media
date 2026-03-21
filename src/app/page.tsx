@@ -1,65 +1,212 @@
-import Image from "next/image";
+"use client";
+
+import Navbar from "@/components/Navbar";
+import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
+import Magnetic from "@/components/Magnetic";
+import CinematicText from "@/components/CinematicText";
+import Parallax from "@/components/Parallax";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="bg-[#0A0A0A] text-white overflow-hidden relative">
+
+      <Navbar />
+
+      {/* HERO */}
+      <section
+        id="home"
+        className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative"
+      >
+
+        <Parallax speed={0.2}>
+          <div className="absolute w-[700px] h-[700px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+        </Parallax>
+
+        <Parallax speed={0.1}>
+          <div className="absolute w-[400px] h-[400px] bg-white/5 blur-[120px] rounded-full bottom-10 left-1/3"></div>
+        </Parallax>
+
+        <CinematicText
+          text="You Need This Media"
+          className="text-5xl md:text-7xl font-bold tracking-tight leading-tight bg-gradient-to-r from-white via-gray-300 to-gray-500 text-transparent bg-clip-text"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-gold mt-4 text-xl md:text-2xl tracking-wide"
+        >
+          Scroll to Scale
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="mt-6 max-w-2xl text-gray-400 text-lg leading-relaxed"
+        >
+          A global creative marketing agency helping businesses,
+          creators, and brands grow their digital presence with
+          content that captures attention and drives real results.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="mt-10 flex gap-4 flex-wrap justify-center"
+        >
+
+          <Magnetic>
+            <button
+              onClick={() => router.push("/contact")}
+              className="btn-gold glow"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Get Started
+            </button>
+          </Magnetic>
+
+          <Magnetic>
+            <button
+              onClick={() => scrollTo("services")}
+              className="px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition"
             >
-              Learning
-            </a>{" "}
-            center.
+              View Services
+            </button>
+          </Magnetic>
+
+        </motion.div>
+
+      </section>
+
+      {/* SERVICES (FIXED ORDER) */}
+      <section id="services" className="py-36 px-6 relative">
+
+        <Reveal>
+          <h2 className="text-4xl md:text-6xl font-bold text-center text-gold mb-6">
+            What We Do
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-20 text-lg">
+            We create, optimize, and scale content that drives real growth.
           </p>
+        </Reveal>
+
+        <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+
+          {[
+            {
+              title: "Video Editing",
+              desc: "High-quality reels and YouTube edits designed to hook attention and maximize retention.",
+            },
+            {
+              title: "Designing",
+              desc: "Scroll-stopping visuals and creatives built for engagement.",
+            },
+            {
+              title: "Growth",
+              desc: "Optimization and strategy to scale your presence.",
+            },
+          ].map((service, i) => (
+            <Reveal key={i}>
+              <motion.div
+                whileHover={{ y: -15 }}
+                className="relative glass p-10 rounded-2xl hover:shadow-[0_0_60px_rgba(232,200,64,0.2)]"
+              >
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E8C840] to-transparent opacity-40"></div>
+
+                <h3 className="text-xl font-semibold mb-4">
+                  {service.title}
+                </h3>
+
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {service.desc}
+                </p>
+              </motion.div>
+            </Reveal>
+          ))}
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="py-36 px-6 section-dark text-center relative">
+
+        <div className="absolute w-[500px] h-[500px] bg-[#E8C840]/10 blur-[140px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+
+        <Reveal>
+          <h2 className="text-4xl md:text-6xl font-bold text-gold mb-6">
+            About Us
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed">
+            YouNeedThis Media is a global creative marketing agency helping
+            businesses, creators, and brands build a powerful digital presence.
+            We combine creativity, strategy, and execution to create content
+            that captures attention and drives real, measurable growth.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-10 text-white text-xl md:text-2xl font-medium">
+            We don’t just create content — we create what drives results.
+          </p>
+        </Reveal>
+
+      </section>
+
+      {/* WHY CHOOSE US */}
+      <WhyChooseUs />
+
+      {/* CTA */}
+      <section className="py-36 text-center px-6 relative">
+
+        <Reveal>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Ready to Grow Your Presence?
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <p className="text-gray-400 mb-10 text-lg">
+            Let’s turn your content into a growth engine.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <Magnetic>
+            <button
+              onClick={() => router.push("/contact")}
+              className="btn-gold glow"
+            >
+              Work With Us
+            </button>
+          </Magnetic>
+        </Reveal>
+
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-12 text-center text-gray-500 border-t border-white/10">
+        © 2026 You Need This Media. All rights reserved.
+      </footer>
+
     </div>
   );
 }
