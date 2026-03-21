@@ -3,65 +3,93 @@
 import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 
-<section className="py-32 px-6 section-dark text-center relative overflow-hidden">
+export default function AboutSection() {
+  return (
+    <section id="about" className="py-28 px-6 bg-[#0A0A0A] text-center relative overflow-hidden">
 
-  {/* Layered Glow */}
-  <div className="absolute w-[500px] h-[500px] bg-[#E8C840]/10 blur-[140px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+      {/* 🔥 BACKGROUND GLOW (SOFTER) */}
+      <div className="absolute w-[500px] h-[500px] bg-[#E8C840]/10 blur-[140px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
 
-  {/* Heading */}
-  <Reveal>
-    <h2 className="text-4xl md:text-6xl font-bold text-gold mb-6 tracking-tight">
-      About Us
-    </h2>
-  </Reveal>
-
-  {/* Main Description */}
-  <Reveal>
-    <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed">
-      YouNeedThis Media is a global creative marketing agency helping businesses,
-      creators, and brands build a powerful digital presence. We combine creativity,
-      strategy, and execution to create content that captures attention and drives
-      real, measurable growth.
-    </p>
-  </Reveal>
-
-  {/* Highlight Line */}
-  <Reveal>
-    <p className="mt-10 text-white text-xl md:text-2xl font-medium tracking-wide">
-      We don’t just create content — we create what drives results.
-    </p>
-  </Reveal>
-
-  {/* Feature Cards */}
-  <div className="mt-20 grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-
-    {[
-      {
-        title: "Strategy First",
-        desc: "Every piece of content is backed by clear planning and purpose.",
-      },
-      {
-        title: "Creative Execution",
-        desc: "High-quality visuals and edits designed to capture attention instantly.",
-      },
-      {
-        title: "Growth Focused",
-        desc: "Optimized for engagement, reach, and long-term scaling.",
-      },
-    ].map((item, i) => (
-      <Reveal key={i}>
-        <motion.div
-          whileHover={{ y: -10 }}
-          className="glass p-8 rounded-xl transition duration-300 hover:shadow-[0_0_40px_rgba(232,200,64,0.15)]"
-        >
-          <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-          <p className="text-gray-400 text-sm leading-relaxed">
-            {item.desc}
-          </p>
-        </motion.div>
+      {/* 🔥 HEADING */}
+      <Reveal>
+        <p className="text-gold text-xs tracking-[0.2em] mb-3">
+          ABOUT US
+        </p>
       </Reveal>
-    ))}
 
-  </div>
+      <Reveal>
+        <h2 className="text-3xl md:text-5xl font-bold mb-5 tracking-tight leading-tight">
+          We Build <span className="text-gold">Attention</span> That Converts
+        </h2>
+      </Reveal>
 
-</section>
+      {/* 🔥 MAIN TEXT (REDUCED SIZE) */}
+      <Reveal>
+        <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg leading-relaxed">
+          You Need This Media is a performance-driven creative agency helping
+          creators, brands, and businesses turn content into a scalable growth
+          engine. We craft strategies, visuals, and systems that don’t just look
+          good — they deliver real results.
+        </p>
+      </Reveal>
+
+      {/* 🔥 TAGLINE (FIXED SIZE + SPACING) */}
+      <Reveal>
+        <p className="mt-6 text-white text-lg md:text-xl font-medium">
+          We don’t chase trends — we engineer growth.
+        </p>
+      </Reveal>
+
+      {/* 🔥 CARDS */}
+      <div className="mt-16 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+        {[
+          {
+            title: "Strategy-Driven",
+            desc: "Every piece of content is backed by data and clear growth intent.",
+          },
+          {
+            title: "Creative Excellence",
+            desc: "Scroll-stopping visuals and edits designed to capture attention.",
+          },
+          {
+            title: "Scalable Growth",
+            desc: "Systems that help your brand grow consistently over time.",
+          },
+        ].map((item, i) => (
+          <Reveal key={i}>
+            <motion.div
+              whileHover={{ y: -8 }}
+              className="relative glass p-6 rounded-xl border border-white/10 hover:border-[#E8C840]/40 hover:shadow-[0_0_40px_rgba(232,200,64,0.15)] transition group"
+            >
+
+              {/* GOLD LINE */}
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E8C840] to-transparent opacity-40"></div>
+
+              <h3 className="text-base font-semibold mb-2 text-white">
+                {item.title}
+              </h3>
+
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+
+              {/* HOVER SHINE */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-transparent via-white/10 to-transparent blur-xl"></div>
+
+            </motion.div>
+          </Reveal>
+        ))}
+
+      </div>
+
+      {/* 🔥 TRUST LINE */}
+      <Reveal>
+        <p className="mt-16 text-gray-500 text-xs md:text-sm tracking-wide">
+          Trusted by creators, startups, and brands building their presence across platforms.
+        </p>
+      </Reveal>
+
+    </section>
+  );
+}

@@ -8,15 +8,49 @@ import CinematicText from "@/components/CinematicText";
 import Parallax from "@/components/Parallax";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { useRouter } from "next/navigation";
+import OrbitalServices from "@/components/OrbitalServices";
+import ProcessFlow from "@/components/ProcessFlow";
+import ResultsSection from "@/components/results";
+import Testimonials from "@/components/Testimonials";
+import AboutSection from "@/components/About";
+import CTASection from "@/components/CTA";
+import FooterSection from "@/components/Footer"
+// 🔥 ICONS
+import {
+  Instagram,
+  Youtube,
+  Facebook,
+  Twitter,
+  Linkedin,
+} from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
 
+    if (el) {
+      const yOffset = -100; // adjust for navbar height
+      const y =
+        el.getBoundingClientRect().top + window.scrollY + yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    } else {
+      // fallback if section not found (rare case)
+      router.push("/");
+      setTimeout(() => {
+        const elRetry = document.getElementById(id);
+        if (elRetry) {
+          const y =
+            elRetry.getBoundingClientRect().top +
+            window.scrollY -
+            100;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 400);
+    }
+  };
   return (
     <div className="bg-[#0A0A0A] text-white overflow-hidden relative">
 
@@ -28,6 +62,7 @@ export default function Home() {
         className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative"
       >
 
+        {/* BACKGROUND */}
         <Parallax speed={0.2}>
           <div className="absolute w-[700px] h-[700px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
         </Parallax>
@@ -36,20 +71,23 @@ export default function Home() {
           <div className="absolute w-[400px] h-[400px] bg-white/5 blur-[120px] rounded-full bottom-10 left-1/3"></div>
         </Parallax>
 
+        {/* ORIGINAL TITLE */}
         <CinematicText
           text="You Need This Media"
           className="text-5xl md:text-7xl font-bold tracking-tight leading-tight bg-gradient-to-r from-white via-gray-300 to-gray-500 text-transparent bg-clip-text"
         />
 
+        {/* TAGLINE */}
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
           className="text-gold mt-4 text-xl md:text-2xl tracking-wide"
         >
-          Scroll to Scale
+          From Scroll to Scale
         </motion.p>
 
+        {/* DESCRIPTION */}
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,6 +99,7 @@ export default function Home() {
           content that captures attention and drives real results.
         </motion.p>
 
+        {/* BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,7 +112,7 @@ export default function Home() {
               onClick={() => router.push("/contact")}
               className="btn-gold glow"
             >
-              Get Started
+              Schedule Your Call
             </button>
           </Magnetic>
 
@@ -88,125 +127,196 @@ export default function Home() {
 
         </motion.div>
 
+        {/* 🔥 TRUST SECTION (UPGRADED ICONS) */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5 }}
+          className="mt-10 flex flex-col items-center gap-4"
+        >
+
+          {/* ICONS */}
+          <div className="flex gap-4">
+
+            {[Instagram, Youtube, Facebook, Twitter, Linkedin].map(
+              (Icon, i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full text-gray-400 hover:text-[#E8C840] hover:bg-white/10 hover:scale-110 transition duration-300"
+                >
+                  <Icon size={18} />
+                </div>
+              )
+            )}
+
+          </div>
+
+          {/* TRUST TEXT */}
+          <p className="text-gray-400 text-sm">
+            ⭐ Trusted by{" "}
+            <span className="text-white font-medium">
+              20+ creators
+            </span>
+          </p>
+
+        </motion.div>
+
       </section>
 
-      {/* SERVICES (FIXED ORDER) */}
-      <section id="services" className="py-36 px-6 relative">
+      {/* 🔥 PREMIUM BRAND LOGO STRIP */}
+      <section className="py-24 relative overflow-hidden">
 
-        <Reveal>
-          <h2 className="text-4xl md:text-6xl font-bold text-center text-gold mb-6">
-            What We Do
-          </h2>
-        </Reveal>
+        {/* 🔥 HEADLINE (UPGRADED) */}
+        <h3 className="text-center text-2xl md:text-3xl font-semibold tracking-wide mb-14">
+          <span className="text-white">
+            Our creators produce content across
+          </span>{" "}
+          <span className="text-gold">
+            the world’s leading platforms
+          </span>
+        </h3>
 
-        <Reveal>
-          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-20 text-lg">
-            We create, optimize, and scale content that drives real growth.
-          </p>
-        </Reveal>
+        {/* LEFT FADE */}
+        <div className="absolute left-0 top-0 w-40 h-full bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
 
-        <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        {/* RIGHT FADE */}
+        <div className="absolute right-0 top-0 w-40 h-full bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
+
+        {/* LOGOS */}
+        <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
+
+          {[
+            "/brands/instagram.jpeg",
+            "/brands/youtube.png",
+            "/brands/twitter.jpeg",
+            "/brands/linkedin.png",
+            "/brands/facebook.png",
+            "/brands/tiktok.png",
+            "/brands/instagram.jpeg",
+            "/brands/youtube.png",
+            "/brands/twitter.jpeg",
+            "/brands/linkedin.png",
+            "/brands/facebook.png",
+            "/brands/tiktok.png",
+          ].map((logo, i) => (
+            <img
+              key={i}
+              src={logo}
+              alt="brand"
+              className="h-12 md:h-14 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition duration-300"
+            />
+          ))}
+
+        </div>
+      </section>
+
+      {/* 🔥 PROBLEM SECTION */}
+      <section className="py-32 px-6 relative">
+
+        {/* SMALL LABEL */}
+        <p className="text-gold text-center text-sm tracking-widest mb-4">
+          THE PROBLEM
+        </p>
+
+        {/* MAIN HEADING */}
+        <h2 className="text-4xl md:text-6xl font-bold text-center mb-6 leading-tight">
+          Struggling to grow on{" "}
+          <span className="text-gold">social media?</span>
+        </h2>
+
+        {/* SUBTEXT */}
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-16 text-lg">
+          You're creating content, but the results aren't showing up.
+          Sound familiar?
+        </p>
+
+        {/* CARDS */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
 
           {[
             {
-              title: "Video Editing",
-              desc: "High-quality reels and YouTube edits designed to hook attention and maximize retention.",
+              title: "Low engagement",
+              desc: "Your posts aren't reaching or engaging your audience.",
             },
             {
-              title: "Designing",
-              desc: "Scroll-stopping visuals and creatives built for engagement.",
+              title: "Poor performance",
+              desc: "Content fails to convert views into growth.",
             },
             {
-              title: "Growth",
-              desc: "Optimization and strategy to scale your presence.",
+              title: "Inconsistent posting",
+              desc: "No clear system or schedule for content.",
             },
-          ].map((service, i) => (
-            <Reveal key={i}>
-              <motion.div
-                whileHover={{ y: -15 }}
-                className="relative glass p-10 rounded-2xl hover:shadow-[0_0_60px_rgba(232,200,64,0.2)]"
-              >
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E8C840] to-transparent opacity-40"></div>
+            {
+              title: "Weak hooks",
+              desc: "Videos fail to capture attention in the first seconds.",
+            },
+            {
+              title: "Slow growth",
+              desc: "Your channel isn’t scaling despite effort.",
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="relative glass p-6 rounded-2xl text-center transition duration-300 hover:scale-105 hover:shadow-[0_0_50px_rgba(232,200,64,0.2)]"
+            >
 
-                <h3 className="text-xl font-semibold mb-4">
-                  {service.title}
-                </h3>
+              {/* GOLD TOP LINE */}
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E8C840] to-transparent opacity-40"></div>
 
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {service.desc}
-                </p>
-              </motion.div>
-            </Reveal>
+              {/* TITLE (SMALL) */}
+              <h3 className="text-white font-semibold mb-2 text-sm md:text-base">
+                {item.title}
+              </h3>
+
+              {/* DESCRIPTION (SMALL) */}
+              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
+                {item.desc}
+              </p>
+
+            </div>
           ))}
 
         </div>
 
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="py-36 px-6 section-dark text-center relative">
+      {/* 🔥 SOLUTION SECTION */}
+      <section className="py-32 px-6 text-center relative">
 
-        <div className="absolute w-[500px] h-[500px] bg-[#E8C840]/10 blur-[140px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+        {/* LABEL */}
+        <p className="text-gold text-sm tracking-widest mb-4">
+          THE SOLUTION
+        </p>
 
-        <Reveal>
-          <h2 className="text-4xl md:text-6xl font-bold text-gold mb-6">
-            About Us
-          </h2>
-        </Reveal>
+        {/* HEADING */}
+        <h2 className="text-4xl md:text-6xl font-bold leading-tight mb-6 max-w-5xl mx-auto">
+          That’s Why We Built{" "}
+          <span className="text-gold">You Need This Media</span>
+        </h2>
 
-        <Reveal>
-          <p className="max-w-3xl mx-auto text-gray-300 text-lg md:text-xl leading-relaxed">
-            YouNeedThis Media is a global creative marketing agency helping
-            businesses, creators, and brands build a powerful digital presence.
-            We combine creativity, strategy, and execution to create content
-            that captures attention and drives real, measurable growth.
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <p className="mt-10 text-white text-xl md:text-2xl font-medium">
-            We don’t just create content — we create what drives results.
-          </p>
-        </Reveal>
+        {/* SUBTEXT */}
+        <p className="text-gray-400 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
+          We combine viral content creation, strategic editing, and data-driven
+          optimization to help you dominate social media — so you can focus on
+          what you do best.
+        </p>
 
       </section>
 
-      {/* WHY CHOOSE US */}
-      <WhyChooseUs />
+      <OrbitalServices />
 
-      {/* CTA */}
-      <section className="py-36 text-center px-6 relative">
+      <ProcessFlow />
 
-        <Reveal>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready to Grow Your Presence?
-          </h2>
-        </Reveal>
+      <ResultsSection />
 
-        <Reveal>
-          <p className="text-gray-400 mb-10 text-lg">
-            Let’s turn your content into a growth engine.
-          </p>
-        </Reveal>
+      <Testimonials />
 
-        <Reveal>
-          <Magnetic>
-            <button
-              onClick={() => router.push("/contact")}
-              className="btn-gold glow"
-            >
-              Work With Us
-            </button>
-          </Magnetic>
-        </Reveal>
+      <AboutSection />
 
-      </section>
+      <CTASection />
 
-      {/* FOOTER */}
-      <footer className="py-12 text-center text-gray-500 border-t border-white/10">
-        © 2026 You Need This Media. All rights reserved.
-      </footer>
+      <FooterSection />
 
-    </div>
+    </div >
   );
 }

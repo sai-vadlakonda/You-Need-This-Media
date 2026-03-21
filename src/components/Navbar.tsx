@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import Magnetic from "@/components/Magnetic";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
+  // 🔥 Background blur
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
@@ -21,29 +23,43 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 🔥 ACTIVE STATE FOR CONTACT PAGE
   useEffect(() => {
     if (pathname === "/contact") {
       setActive("contact");
       return;
     }
+  }, [pathname]);
 
+  // 🔥 PERFECT SCROLL TRACKING (FIXED)
+  useEffect(() => {
     if (pathname !== "/") return;
 
-    const sections = ["home", "services", "about"];
+    const sections = [
+      "home",
+      "services",
+      "about",
+      "results",
+      "process",
+      "testimonials",
+    ];
 
     const handleScroll = () => {
       let current = "home";
 
-      for (let id of sections) {
+      sections.forEach((id) => {
         const el = document.getElementById(id);
-        if (!el) continue;
+        if (!el) return;
 
-        const offset = el.offsetTop - 150;
+        const rect = el.getBoundingClientRect();
 
-        if (window.scrollY >= offset) {
+        if (
+          rect.top <= window.innerHeight * 0.4 &&
+          rect.bottom >= 100
+        ) {
           current = id;
         }
-      }
+      });
 
       setActive(current);
     };
@@ -54,9 +70,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  // 🔥 NAVIGATION (FIXED)
   const handleNav = (section: string) => {
     setMenuOpen(false);
-    setActive(section);
+    setActive(section); // 🔥 instant underline
+
+    if (section === "portfolio") {
+      router.push("/portfolio");
+      return;
+    }
 
     if (section === "contact") {
       router.push("/contact");
@@ -65,10 +87,12 @@ export default function Navbar() {
 
     if (pathname !== "/") {
       router.push("/");
+
       setTimeout(() => {
         const el = document.getElementById(section);
         if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 300);
+      }, 400);
+
       return;
     }
 
@@ -78,7 +102,9 @@ export default function Navbar() {
 
   const linkClass = (id: string) =>
     `relative px-1 transition ${
-      active === id ? "text-white" : "text-gray-400 hover:text-white"
+      active === id
+        ? "text-white"
+        : "text-gray-400 hover:text-white"
     }`;
 
   return (
@@ -95,12 +121,13 @@ export default function Navbar() {
         }`}
       >
         {/* LOGO */}
-        <div className="flex items-center min-w-0">
-          <h1
-            onClick={() => handleNav("home")}
-            className="text-sm md:text-base font-semibold text-white cursor-pointer truncate"
-          >
-            You Need This Media
+        <div
+          onClick={() => handleNav("home")}
+          className="flex items-center gap-2 cursor-pointer"
+        >
+          <Image src="/logo.png" alt="logo" width={28} height={28} />
+          <h1 className="text-sm md:text-base font-semibold">
+            YOU NEED THIS <span className="text-[#E8C840]">MEDIA</span>
           </h1>
         </div>
 
@@ -122,6 +149,20 @@ export default function Navbar() {
             </button>
           ))}
 
+          {/* PORTFOLIO */}
+          <button
+            onClick={() => handleNav("portfolio")}
+            className={linkClass("portfolio")}
+          >
+            Portfolio
+            <span
+              className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
+                active === "portfolio" ? "w-full" : "w-0"
+              }`}
+            />
+          </button>
+
+          {/* CONTACT */}
           <button
             onClick={() => handleNav("contact")}
             className={linkClass("contact")}
@@ -138,32 +179,33 @@ export default function Navbar() {
         {/* CTA */}
         <Magnetic>
           <button
-            onClick={() => handleNav("contact")}
-            className="hidden md:block bg-[#E8C840] text-black px-5 py-2 rounded-full text-sm font-medium hover:scale-110 transition"
+            onClick={() => router.push("/contact")}
+            className="hidden md:block bg-[#E8C840] text-black px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition"
           >
-            Get Started
+            Schedule Your Call
           </button>
         </Magnetic>
 
-        {/* 🔥 MOBILE BUTTON (ABSOLUTE FIX) */}
+        {/* MOBILE */}
         <button
-          className="md:hidden text-white text-2xl z-[999999] ml-2"
+          className="md:hidden text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? "✕" : "☰"}
         </button>
       </div>
 
-      {/* 🔥 MOBILE MENU */}
+      {/* MOBILE MENU */}
       {menuOpen && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-20 w-[90%] bg-black/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col gap-4 text-gray-300 z-[999999]"
+          className="absolute top-20 w-[90%] bg-black/95 border border-white/10 rounded-2xl p-6 flex flex-col gap-4"
         >
           <button onClick={() => handleNav("home")}>Home</button>
           <button onClick={() => handleNav("services")}>Services</button>
           <button onClick={() => handleNav("about")}>About</button>
+          <button onClick={() => handleNav("portfolio")}>Portfolio</button>
           <button onClick={() => handleNav("contact")}>Contact</button>
         </motion.div>
       )}
