@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "You Need This Media",
+  title: "You Need This Media | Creative Marketing Agency for Creators & Businesses",
   description:
-    "YouNeedThis Media is a global creative marketing agency helping businesses, creators, and brands grow their digital presence. From Scroll to Scale.",
+    "We help creators and businesses grow their digital presence with high-performing content, design, and strategy. From Scroll to Scale.",
 };
 
 export default function RootLayout({
