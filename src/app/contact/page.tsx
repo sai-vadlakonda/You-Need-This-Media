@@ -3,18 +3,18 @@
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import Magnetic from "@/components/Magnetic";
-import { useState } from "react";
 import FooterSection from "@/components/Footer";
+import React, { useState } from "react";
 
 export default function Contact() {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
 
     const response = await fetch(
       "https://formsubmit.co/info@youneedthismedia.com",
