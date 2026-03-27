@@ -16,7 +16,7 @@ export default function Contact() {
 
     const formData = new FormData(e.currentTarget);
 
-    const response = await fetch(
+    const response: Response = await fetch(
       "https://formsubmit.co/info@youneedthismedia.com",
       {
         method: "POST",
@@ -27,8 +27,7 @@ export default function Contact() {
     if (response.ok) {
       setSuccess(true);
       setLoading(false);
-      e.target.reset();
-
+      e.currentTarget.reset();
       setTimeout(() => {
         setSuccess(false);
       }, 3000);
