@@ -14,10 +14,12 @@ export default function Footer() {
   const pathname = usePathname();
 
   const handleNav = (section: string) => {
-    if (section === "portfolio") {
-      router.push("/portfolio");
-      return;
-    }
+
+    // ❌ Portfolio disabled for now
+    // if (section === "portfolio") {
+    //   router.push("/portfolio");
+    //   return;
+    // }
 
     if (section === "contact") {
       router.push("/contact");
@@ -103,7 +105,7 @@ export default function Footer() {
             {[
               "home",
               "services",
-              "portfolio",
+              // "portfolio", // 🔥 disabled for now
               "about",
               "contact",
               "results",
@@ -122,7 +124,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 🔥 RIGHT */}
+        {/* RIGHT */}
         <div className="flex flex-col items-center md:items-end gap-4">
 
           <motion.button
@@ -135,10 +137,28 @@ export default function Footer() {
           </motion.button>
 
           <div className="flex gap-3 justify-center md:justify-end">
-            {[Instagram, Youtube, Twitter, Linkedin].map((Icon, i) => (
+            {[
+              {
+                Icon: Instagram,
+                link: "https://instagram.com/youneedthismedia",
+              },
+              {
+                Icon: Youtube,
+                link: "#",
+              },
+              {
+                Icon: Twitter,
+                link: "#",
+              },
+              {
+                Icon: Linkedin,
+                link: "#",
+              },
+            ].map(({ Icon, link }, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.2 }}
+                onClick={() => window.open(link, "_blank")}
                 className="p-2 rounded-full border border-white/10 hover:border-[#E8C840] hover:text-[#E8C840] transition text-gray-400 cursor-pointer"
               >
                 <Icon size={16} />

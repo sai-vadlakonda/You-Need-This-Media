@@ -28,27 +28,21 @@ export default function Home() {
   const router = useRouter();
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
+    const tryScroll = () => {
+      const el = document.getElementById(id);
+      if (!el) return false;
 
-    if (el) {
-      const yOffset = -100; // adjust for navbar height
-      const y =
-        el.getBoundingClientRect().top + window.scrollY + yOffset;
-
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
       window.scrollTo({ top: y, behavior: "smooth" });
-    } else {
-      // fallback if section not found (rare case)
-      router.push("/");
-      setTimeout(() => {
-        const elRetry = document.getElementById(id);
-        if (elRetry) {
-          const y =
-            elRetry.getBoundingClientRect().top +
-            window.scrollY -
-            100;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }
-      }, 400);
+      return true;
+    };
+
+    if (!tryScroll()) {
+      let attempts = 0;
+      const interval = setInterval(() => {
+        if (tryScroll() || attempts > 10) clearInterval(interval);
+        attempts++;
+      }, 100);
     }
   };
   return (
@@ -106,24 +100,19 @@ export default function Home() {
           transition={{ delay: 1.2 }}
           className="mt-10 flex gap-4 flex-wrap justify-center"
         >
+          <button
+            onClick={() => router.push("/contact")}
+            className="btn-gold glow transition-transform duration-200 hover:scale-105 active:scale-95"
+          >
+            Schedule Your Call
+          </button>
 
-          <Magnetic>
-            <button
-              onClick={() => router.push("/contact")}
-              className="btn-gold glow"
-            >
-              Schedule Your Call
-            </button>
-          </Magnetic>
-
-          <Magnetic>
-            <button
-              onClick={() => scrollTo("services")}
-              className="px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition"
-            >
-              View Services
-            </button>
-          </Magnetic>
+          <button
+            onClick={() => scrollTo("services")}
+            className="px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition hover:scale-105 active:scale-95"
+          >
+            View Services
+          </button>
 
         </motion.div>
 
@@ -167,7 +156,7 @@ export default function Home() {
       <section className="py-24 relative overflow-hidden">
 
         {/* 🔥 HEADLINE (UPGRADED) */}
-        <h3 className="text-center text-2xl md:text-3xl font-semibold tracking-wide mb-14">
+        <h3 className="text-center text-xl md:text-2xl font-semibold tracking-wide mb-10">
           <span className="text-white">
             Our creators produce content across
           </span>{" "}
@@ -186,13 +175,13 @@ export default function Home() {
         <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
 
           {[
-            "/brands/instagram.jpeg",
+            "/brands/instagram.png",
             "/brands/youtube.png",
             "/brands/twitter.jpeg",
             "/brands/linkedin.png",
             "/brands/facebook.png",
             "/brands/tiktok.png",
-            "/brands/instagram.jpeg",
+            "/brands/instagram.png",
             "/brands/youtube.png",
             "/brands/twitter.jpeg",
             "/brands/linkedin.png",

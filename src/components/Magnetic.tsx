@@ -1,39 +1,51 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function Magnetic({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
+    const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
 
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+    const offsetX = e.clientX - rect.left - rect.width / 2;
+    const offsetY = e.clientY - rect.top - rect.height / 2;
 
-    ref.current!.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+    x.set(offsetX * 0.2);
+    y.set(offsetY * 0.2);
   };
 
   const handleMouseLeave = () => {
-    if (ref.current) {
-      ref.current.style.transform = `translate(0px, 0px)`;
-    }
+    x.set(0);
+    y.set(0);
   };
 
   return (
-    <motion.div
-      ref={ref}
+    <div
+      ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="inline-block transition-transform duration-200"
+      className="inline-block"
     >
-      {children}
-    </motion.div>
+      {/* 👇 ONLY THIS MOVES (not the event layer) */}
+      <motion.div
+        style={{ x: springX, y: springY }}
+        className="inline-block"
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

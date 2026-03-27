@@ -100,7 +100,7 @@ export default function ResultsSection() {
 
       </div>
 
-      {/* 🔥 BUTTON */}
+      {/*  
       <div className="flex justify-center mt-16">
         <Magnetic>
           <button className="px-8 py-3 border border-[#E8C840]/40 rounded-full text-white hover:bg-[#E8C840] hover:text-black transition">
@@ -108,6 +108,7 @@ export default function ResultsSection() {
           </button>
         </Magnetic>
       </div>
+      */}
 
     </section>
   );
