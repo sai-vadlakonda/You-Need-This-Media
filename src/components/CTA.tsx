@@ -9,21 +9,22 @@ export default function FinalCTA() {
   const router = useRouter();
 
   return (
-    <section className="py-28 px-6 bg-[#0A0A0A] text-center relative overflow-hidden">
+    <section className="py-28 px-6 bg-[#0A0A0A] text-center relative overflow-hidden z-10">
 
-      {/* 🔥 BACKGROUND GLOW */}
-      <div className="absolute w-[600px] h-[600px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+      {/* 🔥 BACKGROUND GLOW (NON-INTERACTIVE) */}
+      <div className="absolute w-[600px] h-[600px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2 pointer-events-none"></div>
 
-      {/* 🔥 FLOATING PARTICLES */}
+      {/* 🔥 FLOATING PARTICLES (NON-INTERACTIVE) */}
       <motion.div
         animate={{ y: [0, -20, 0] }}
         transition={{ repeat: Infinity, duration: 6 }}
-        className="absolute top-20 left-1/4 w-2 h-2 bg-[#E8C840] rounded-full opacity-60"
+        className="absolute top-20 left-1/4 w-2 h-2 bg-[#E8C840] rounded-full opacity-60 pointer-events-none"
       />
+
       <motion.div
         animate={{ y: [0, 20, 0] }}
         transition={{ repeat: Infinity, duration: 7 }}
-        className="absolute bottom-20 right-1/4 w-2 h-2 bg-[#E8C840] rounded-full opacity-60"
+        className="absolute bottom-20 right-1/4 w-2 h-2 bg-[#E8C840] rounded-full opacity-60 pointer-events-none"
       />
 
       {/* 🔥 HEADING */}
@@ -41,18 +42,20 @@ export default function FinalCTA() {
         </p>
       </Reveal>
 
-      {/* 🔥 BUTTON */}
+      {/* 🔥 BUTTON (FIXED) */}
       <Reveal>
-        <Magnetic>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push("/contact")}
-            className="btn-gold glow px-8 py-3 rounded-full font-medium text-black"
-          >
-            Schedule Your Call →
-          </motion.button>
-        </Magnetic>
+        <div className="relative z-20 flex justify-center">
+          <Magnetic>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push("/contact")}
+              className="btn-gold glow px-8 py-3 rounded-full font-medium text-black"
+            >
+              Schedule Your Call →
+            </motion.button>
+          </Magnetic>
+        </div>
       </Reveal>
 
     </section>

@@ -28,22 +28,33 @@ export default function Home() {
   const router = useRouter();
 
   const scrollTo = (id: string) => {
-    const tryScroll = () => {
+    let attempts = 0;
+
+    const interval = setInterval(() => {
       const el = document.getElementById(id);
-      if (!el) return false;
 
-      const y = el.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      return true;
-    };
+      if (el) {
+        const yOffset = -80;
+        const y =
+          el.getBoundingClientRect().top +
+          window.pageYOffset +
+          yOffset;
 
-    if (!tryScroll()) {
-      let attempts = 0;
-      const interval = setInterval(() => {
-        if (tryScroll() || attempts > 10) clearInterval(interval);
-        attempts++;
-      }, 100);
-    }
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+
+        clearInterval(interval);
+      }
+
+      attempts++;
+
+      if (attempts > 50) {
+        clearInterval(interval);
+        console.warn("Scroll failed: element not found");
+      }
+    }, 100); // keeps checking until ready
   };
   return (
     <div className="bg-[#0A0A0A] text-white overflow-hidden relative">
@@ -53,16 +64,16 @@ export default function Home() {
       {/* HERO */}
       <section
         id="home"
-        className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative"
+        className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative z-10"
       >
 
         {/* BACKGROUND */}
         <Parallax speed={0.2}>
-          <div className="absolute w-[700px] h-[700px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2"></div>
+          <div className="absolute w-[700px] h-[700px] bg-[#E8C840]/10 blur-[160px] rounded-full top-10 left-1/2 -translate-x-1/2 pointer-events-none"></div>
         </Parallax>
 
         <Parallax speed={0.1}>
-          <div className="absolute w-[400px] h-[400px] bg-white/5 blur-[120px] rounded-full bottom-10 left-1/3"></div>
+          <div className="absolute w-[400px] h-[400px] bg-white/5 blur-[120px] rounded-full bottom-10 left-1/3 pointer-events-none"></div>
         </Parallax>
 
         {/* ORIGINAL TITLE */}
@@ -98,7 +109,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
-          className="mt-10 flex gap-4 flex-wrap justify-center"
+          className="mt-10 flex gap-4 flex-wrap justify-center relative z-20"
         >
           <button
             onClick={() => router.push("/contact")}
@@ -108,7 +119,10 @@ export default function Home() {
           </button>
 
           <button
-            onClick={() => scrollTo("services")}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo("services");
+            }}
             className="px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition hover:scale-105 active:scale-95"
           >
             View Services
@@ -153,10 +167,10 @@ export default function Home() {
       </section>
 
       {/* 🔥 PREMIUM BRAND LOGO STRIP */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-16 md:py-24 relative overflow-hidden">
 
-        {/* 🔥 HEADLINE (UPGRADED) */}
-        <h3 className="text-center text-xl md:text-2xl font-semibold tracking-wide mb-10">
+        {/* 🔥 HEADLINE */}
+        <h3 className="text-center text-base sm:text-lg md:text-2xl font-semibold tracking-wide mb-8 md:mb-10 px-4">
           <span className="text-white">
             Our creators produce content across
           </span>{" "}
@@ -165,36 +179,55 @@ export default function Home() {
           </span>
         </h3>
 
-        {/* LEFT FADE */}
-        <div className="absolute left-0 top-0 w-40 h-full bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
+        {/* 🔥 LEFT FADE */}
+        <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
 
-        {/* RIGHT FADE */}
-        <div className="absolute right-0 top-0 w-40 h-full bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
+        {/* 🔥 RIGHT FADE */}
+        <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
 
-        {/* LOGOS */}
-        <div className="flex gap-20 items-center animate-marquee whitespace-nowrap">
+        {/* 🔥 MARQUEE WRAPPER */}
+        <div className="overflow-hidden w-full">
 
-          {[
-            "/brands/instagram.png",
-            "/brands/youtube.png",
-            "/brands/twitter.jpeg",
-            "/brands/linkedin.png",
-            "/brands/facebook.png",
-            "/brands/tiktok.png",
-            "/brands/instagram.png",
-            "/brands/youtube.png",
-            "/brands/twitter.jpeg",
-            "/brands/linkedin.png",
-            "/brands/facebook.png",
-            "/brands/tiktok.png",
-          ].map((logo, i) => (
-            <img
-              key={i}
-              src={logo}
-              alt="brand"
-              className="h-12 md:h-14 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition duration-300"
-            />
-          ))}
+          <div
+            className="flex w-max items-center gap-12 md:gap-20"
+            style={{
+              animation: "marquee 14s linear infinite",
+            }}
+          >
+            {[
+              "/brands/instagram.png",
+              "/brands/youtube.png",
+              "/brands/twitter.png",
+              "/brands/linkedin.png",
+              "/brands/facebook.png",
+              "/brands/tiktok.png",
+            ]
+              // 🔥 TRIPLE DUPLICATION (important for smoothness)
+              .concat([
+                "/brands/instagram.png",
+                "/brands/youtube.png",
+                "/brands/twitter.png",
+                "/brands/linkedin.png",
+                "/brands/facebook.png",
+                "/brands/tiktok.png",
+              ])
+              .concat([
+                "/brands/instagram.png",
+                "/brands/youtube.png",
+                "/brands/twitter.png",
+                "/brands/linkedin.png",
+                "/brands/facebook.png",
+                "/brands/tiktok.png",
+              ])
+              .map((logo, i) => (
+                <img
+                  key={i}
+                  src={logo}
+                  alt="brand"
+                  className="h-10 md:h-14 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition duration-300"
+                />
+              ))}
+          </div>
 
         </div>
       </section>

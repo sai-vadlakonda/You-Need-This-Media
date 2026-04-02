@@ -6,6 +6,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import MouseFollower from "@/components/MouseFollower";
 import MouseGlow from "@/components/MouseGlow";
 import ClientEffects from "@/components/ClientEffects";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "You Need This Media | Creative Marketing Agency for Creators & Businesses",
+  title:
+    "You Need This Media | Creative Marketing Agency for Creators & Businesses",
   description:
     "We help creators and businesses grow their digital presence with high-performing content, design, and strategy. From Scroll to Scale.",
 };
@@ -34,6 +36,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
     >
       <body className="bg-[#0A0A0A] text-white font-sans antialiased relative overflow-x-hidden">
+
+        {/* ✅ SCROLL RESET (ADDED HERE) */}
+        <ScrollToTop />
 
         {/* 🔥 BACKGROUND GLOW */}
         <MouseGlow />

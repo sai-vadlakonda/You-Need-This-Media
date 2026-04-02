@@ -202,7 +202,7 @@ export default function Navbar() {
           <button onClick={() => handleNav("home")}>Home</button>
           <button onClick={() => handleNav("services")}>Services</button>
           <button onClick={() => handleNav("about")}>About</button>
-          <button onClick={() => handleNav("portfolio")}>Portfolio</button>
+         {/* <button onClick={() => handleNav("portfolio")}>Portfolio</button> */}
           <button onClick={() => handleNav("contact")}>Contact</button>
         </motion.div>
       )}
