@@ -7,8 +7,8 @@ const services = [
   { title: "Hook & Viral Edits", desc: "High-retention edits that grab attention instantly." },
   { title: "Catchy Designs", desc: "Scroll-stopping thumbnails & creatives." },
   { title: "Content Scheduling", desc: "Consistent posting for maximum reach." },
-  { title: "Channel Optimization", desc: "SEO & setup to reach the right audience." },
-  { title: "Social Media Management", desc: "End-to-end content growth handling." },
+  { title: "Channel Optimization", desc: "SEO & setup to reach your target audience" },
+  { title: "Social Media Management", desc: "End-to-end content & growth management" },
   { title: "Script Writing", desc: "Viral scripts that drive engagement." },
 ];
 

@@ -99,9 +99,7 @@ export default function Home() {
           transition={{ delay: 0.9 }}
           className="mt-6 max-w-2xl text-gray-400 text-lg leading-relaxed"
         >
-          A global creative marketing agency helping businesses,
-          creators, and brands grow their digital presence with
-          content that captures attention and drives real results.
+          A creative marketing agency helping creators and brands grow their digital presence with content that captures attention and drives real results.
         </motion.p>
 
         {/* BUTTONS */}
@@ -112,7 +110,12 @@ export default function Home() {
           className="mt-10 flex gap-4 flex-wrap justify-center relative z-20"
         >
           <button
-            onClick={() => router.push("/contact")}
+             onClick={() =>
+              window.open(
+                "https://calendly.com/youneedthismedia-info/30min",
+                "_blank"
+              )
+            }
             className="btn-gold glow transition-transform duration-200 hover:scale-105 active:scale-95"
           >
             Schedule Your Call
@@ -158,7 +161,10 @@ export default function Home() {
           <p className="text-gray-400 text-sm">
             ⭐ Trusted by{" "}
             <span className="text-white font-medium">
-              20+ creators
+              Creators & Brands{" "}
+            </span>
+            <span className="text-gray-400 text-sm">
+              WorldWide
             </span>
           </p>
 
@@ -172,10 +178,10 @@ export default function Home() {
         {/* 🔥 HEADLINE */}
         <h3 className="text-center text-base sm:text-lg md:text-2xl font-semibold tracking-wide mb-8 md:mb-10 px-4">
           <span className="text-white">
-            Our creators produce content across
+            We create across every 
           </span>{" "}
           <span className="text-gold">
-            the world’s leading platforms
+            platform that matters
           </span>
         </h3>
 
@@ -270,7 +276,7 @@ export default function Home() {
             },
             {
               title: "Weak hooks",
-              desc: "Videos fail to capture attention in the first seconds.",
+              desc: "Videos fail to hook viewers in the first few seconds.",
             },
             {
               title: "Slow growth",
@@ -329,9 +335,10 @@ export default function Home() {
 
       <ProcessFlow />
 
+      {/*
       <ResultsSection />
 
-      <Testimonials />
+      <Testimonials />  */}
 
       <AboutSection />
 

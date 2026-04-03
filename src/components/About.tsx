@@ -26,10 +26,7 @@ export default function AboutSection() {
       {/* 🔥 MAIN TEXT (REDUCED SIZE) */}
       <Reveal>
         <p className="max-w-2xl mx-auto text-gray-400 text-base md:text-lg leading-relaxed">
-          You Need This Media is a performance-driven creative agency helping
-          creators, brands, and businesses turn content into a scalable growth
-          engine. We craft strategies, visuals, and systems that don’t just look
-          good — they deliver real results.
+          You Need This Media is a performance-driven creative agency helping creators and brands turn content into a scalable growth engine.
         </p>
       </Reveal>
 

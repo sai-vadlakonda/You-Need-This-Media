@@ -38,7 +38,7 @@ export default function FinalCTA() {
       {/* 🔥 SUBTEXT */}
       <Reveal>
         <p className="text-gray-400 max-w-xl mx-auto mb-10 text-base md:text-lg leading-relaxed">
-          Book a free discovery call and let’s build a growth engine for your brand.
+          Book a free call and let's build a growth engine for your brand.
         </p>
       </Reveal>
 
@@ -49,7 +49,12 @@ export default function FinalCTA() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => router.push("/contact")}
+               onClick={() =>
+              window.open(
+                "https://calendly.com/youneedthismedia-info/30min",
+                "_blank"
+              )
+            }
               className="btn-gold glow px-8 py-3 rounded-full font-medium text-black"
             >
               Schedule Your Call →

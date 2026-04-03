@@ -8,25 +8,21 @@ const results = [
     value: "+340%",
     label: "subscribers",
     title: "YouTube Growth",
-    brand: "TechVibe Studios",
   },
   {
     value: "2.5M+",
     label: "views",
     title: "Instagram Reels",
-    brand: "FitLife Brand",
   },
   {
     value: "500K",
     label: "followers",
     title: "TikTok Strategy",
-    brand: "StartupGrow",
   },
   {
     value: "10x",
     label: "engagement",
     title: "LinkedIn Branding",
-    brand: "Travel Diaries",
   },
 ];
 

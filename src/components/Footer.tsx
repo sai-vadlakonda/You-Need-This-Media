@@ -90,12 +90,9 @@ export default function Footer() {
           </div>
 
           <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-            We help creators scale with powerful content systems.
+            We help creators & brands scale with powerful content systems.
           </p>
 
-          <p className="text-gray-500 text-xs">
-            From Scroll to Scale
-          </p>
         </div>
 
         {/* CENTER */}
@@ -108,8 +105,8 @@ export default function Footer() {
               // "portfolio", // 🔥 disabled for now
               "about",
               "contact",
-              "results",
-              "testimonials",
+              //"results",//
+              // "testimonials",//
               "process",
             ].map((item) => (
               <button
@@ -130,29 +127,30 @@ export default function Footer() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleNav("contact")}
+             onClick={() =>
+              window.open(
+                "https://calendly.com/youneedthismedia-info/30min",
+                "_blank"
+              )
+            }
             className="btn-gold px-6 py-2 rounded-full text-black text-sm font-medium"
           >
             Schedule Call →
           </motion.button>
 
-          <div className="flex gap-3 justify-center md:justify-end">
+          <div className="flex gap-5 justify-center md:justify-end">
             {[
               {
                 Icon: Instagram,
                 link: "https://instagram.com/youneedthismedia",
               },
               {
-                Icon: Youtube,
-                link: "#",
-              },
-              {
                 Icon: Twitter,
-                link: "#",
+                link: "https://x.com/WorkspaceI75366",
               },
               {
                 Icon: Linkedin,
-                link: "#",
+                link: "https://www.linkedin.com/company/you-need-this-media/",
               },
             ].map(({ Icon, link }, i) => (
               <motion.div

@@ -31,7 +31,7 @@ export default function Navbar() {
     }
   }, [pathname]);
 
-  // 🔥 PERFECT SCROLL TRACKING (FIXED)
+  // 🔥 SCROLL TRACKING
   useEffect(() => {
     if (pathname !== "/") return;
 
@@ -70,15 +70,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  // 🔥 NAVIGATION (FIXED)
+  // 🔥 NAVIGATION
   const handleNav = (section: string) => {
     setMenuOpen(false);
-    setActive(section); // 🔥 instant underline
-
-    if (section === "portfolio") {
-      router.push("/portfolio");
-      return;
-    }
+    setActive(section);
 
     if (section === "contact") {
       router.push("/contact");
@@ -101,9 +96,10 @@ export default function Navbar() {
   };
 
   const linkClass = (id: string) =>
-    `relative px-1 transition ${active === id
-      ? "text-white"
-      : "text-gray-400 hover:text-white"
+    `relative px-1 transition ${
+      active === id
+        ? "text-white"
+        : "text-gray-400 hover:text-white"
     }`;
 
   return (
@@ -113,10 +109,11 @@ export default function Navbar() {
       className="fixed top-4 w-full z-[99999] flex justify-center px-4"
     >
       <div
-        className={`flex items-center justify-between w-full max-w-6xl px-4 md:px-6 py-3 rounded-full border transition-all duration-300 ${scrolled
-          ? "bg-black/70 backdrop-blur-xl border-white/10"
-          : "bg-black/30 backdrop-blur-md border-white/10"
-          }`}
+        className={`flex items-center justify-between w-full max-w-6xl px-4 md:px-6 py-3 rounded-full border transition-all duration-300 ${
+          scrolled
+            ? "bg-black/70 backdrop-blur-xl border-white/10"
+            : "bg-black/30 backdrop-blur-md border-white/10"
+        }`}
       >
         {/* LOGO */}
         <div
@@ -129,7 +126,7 @@ export default function Navbar() {
           </h1>
         </div>
 
-        {/* DESKTOP */}
+        {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-8 text-sm">
           {["home", "services", "about"].map((item) => (
             <button
@@ -140,50 +137,43 @@ export default function Navbar() {
               {item.charAt(0).toUpperCase() + item.slice(1)}
 
               <span
-                className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${active === item ? "w-full" : "w-0"
-                  }`}
+                className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
+                  active === item ? "w-full" : "w-0"
+                }`}
               />
             </button>
           ))}
 
-          {/* 
-<button
-  onClick={() => handleNav("portfolio")}
-  className={linkClass("portfolio")}
->
-  Portfolio
-  <span
-    className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
-      active === "portfolio" ? "w-full" : "w-0"
-    }`}
-  />
-</button>
-*/}
-
-          {/* CONTACT */}
+          {/* CONTACT US */}
           <button
             onClick={() => handleNav("contact")}
             className={linkClass("contact")}
           >
-            Contact
+            Contact Us
             <span
-              className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${active === "contact" ? "w-full" : "w-0"
-                }`}
+              className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
+                active === "contact" ? "w-full" : "w-0"
+              }`}
             />
           </button>
         </div>
 
-        {/* CTA */}
+        {/* 🔥 CTA (UPDATED TO CALENDLY) */}
         <Magnetic>
           <button
-            onClick={() => router.push("/contact")}
+            onClick={() =>
+              window.open(
+                "https://calendly.com/youneedthismedia-info/30min",
+                "_blank"
+              )
+            }
             className="hidden md:block bg-[#E8C840] text-black px-5 py-2 rounded-full text-sm font-medium hover:scale-105 transition"
           >
-            Schedule Your Call
+            Schedule Call
           </button>
         </Magnetic>
 
-        {/* MOBILE */}
+        {/* MOBILE MENU BUTTON */}
         <button
           className="md:hidden text-white text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -202,8 +192,20 @@ export default function Navbar() {
           <button onClick={() => handleNav("home")}>Home</button>
           <button onClick={() => handleNav("services")}>Services</button>
           <button onClick={() => handleNav("about")}>About</button>
-         {/* <button onClick={() => handleNav("portfolio")}>Portfolio</button> */}
-          <button onClick={() => handleNav("contact")}>Contact</button>
+          <button onClick={() => handleNav("contact")}>Contact Us</button>
+
+          {/* 🔥 MOBILE CTA */}
+          <button
+            onClick={() =>
+              window.open(
+                "https://calendly.com/youneedthismedia-info/30min",
+                "_blank"
+              )
+            }
+            className="mt-2 bg-[#E8C840] text-black px-5 py-2 rounded-full text-sm font-medium"
+          >
+            Schedule Call
+          </button>
         </motion.div>
       )}
     </motion.nav>

@@ -14,25 +14,31 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    const response: Response = await fetch(
-      "https://formsubmit.co/info@youneedthismedia.com",
-      {
-        method: "POST",
-        body: formData,
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/info@youneedthismedia.com",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
       }
-    );
 
-    if (response.ok) {
       setSuccess(true);
-      setLoading(false);
-      e.currentTarget.reset();
+      form.reset();
+
       setTimeout(() => {
         setSuccess(false);
       }, 3000);
-    } else {
+    } catch (error) {
       alert("Something went wrong ❌");
+    } finally {
       setLoading(false);
     }
   };

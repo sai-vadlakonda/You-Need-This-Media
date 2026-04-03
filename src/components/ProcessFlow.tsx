@@ -13,7 +13,7 @@ const steps = [
   },
   {
     title: "Production",
-    desc: "We produce high-quality content that converts.",
+    desc: "We produce scroll-stopping content built to convert.",
   },
   {
     title: "Growth & Optimization",
