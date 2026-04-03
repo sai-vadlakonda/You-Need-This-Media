@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Magnetic from "@/components/Magnetic";
 
 const results = [
   {
@@ -62,32 +61,33 @@ export default function ResultsSection() {
               className="relative glass rounded-2xl overflow-hidden border border-white/10 hover:border-[#E8C840]/40 hover:shadow-[0_0_50px_rgba(232,200,64,0.2)] transition group"
             >
 
-              {/* 🔥 GOLD GRADIENT TOP */}
+              {/* 🔥 TOP */}
               <div className="h-40 flex items-center justify-center bg-gradient-to-br from-[#E8C840]/30 via-transparent to-transparent">
 
-                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                <h3 className="text-3xl md:text-4xl font-bold text-white text-center">
                   {item.value}{" "}
-                  <span className="text-gray-300 text-xl">
+                  <span className="text-gray-300 text-lg md:text-xl">
                     {item.label}
                   </span>
                 </h3>
 
               </div>
 
-              {/* 🔥 BOTTOM INFO */}
-              <div className="p-5 bg-[#0A0A0A]">
+              {/* 🔥 BOTTOM */}
+              <div className="p-5 bg-[#0A0A0A] text-center">
 
-                <p className="text-white font-medium mb-1">
+                <p className="text-white font-medium">
                   {item.title}
                 </p>
 
-                <p className="text-gray-400 text-sm">
-                  {item.brand}
+                {/* Optional subtle subtext (instead of brand) */}
+                <p className="text-gray-500 text-xs mt-1">
+                  Case Study Result
                 </p>
 
               </div>
 
-              {/* 🔥 HOVER SHINE */}
+              {/* 🔥 HOVER EFFECT */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-transparent via-white/10 to-transparent blur-xl"></div>
 
             </motion.div>
@@ -95,16 +95,6 @@ export default function ResultsSection() {
         ))}
 
       </div>
-
-      {/*  
-      <div className="flex justify-center mt-16">
-        <Magnetic>
-          <button className="px-8 py-3 border border-[#E8C840]/40 rounded-full text-white hover:bg-[#E8C840] hover:text-black transition">
-            View Full Portfolio →
-          </button>
-        </Magnetic>
-      </div>
-      */}
 
     </section>
   );
