@@ -1,110 +1,294 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Play, Pause } from "lucide-react";
+import { useRef, useState } from "react";
 
 const testimonials = [
   {
-    name: "Sarah Chen",
-    role: "TechVibe Studios",
-    text: "You Need This Media completely transformed our YouTube channel. We went from 5K to 100K subscribers in 6 months. Their editing style is next level.",
-    initial: "S",
+    name: "Dodagatta Nihar",
+    role: "codedale",
+    video: "/testimonials/client1.mp4",
+    text: "You Need This Media completely transformed our YouTube channel. Their editing quality exceeded every expectation.",
   },
   {
-    name: "Marcus Johnson",
+    name: "Vipul",
     role: "FitLife Brand",
-    text: "The content strategy they built for us generated over 2M views on Instagram Reels in just 3 months. Best investment we've made.",
-    initial: "M",
+    video: "/testimonials/client2.mp4",
+    text: "Our social media growth exploded after working with the team.",
   },
   {
-    name: "Priya Sharma",
+    name: "Khader",
     role: "StartupGrow",
-    text: "Their team understands virality. Our LinkedIn engagement increased 10x after working with them. Highly recommend for creators.",
-    initial: "P",
-  },
-  {
-    name: "James Okafor",
-    role: "Travel Diaries",
-    text: "From thumbnails to scripts, every piece they deliver is premium quality. We've never had such consistent growth across platforms.",
-    initial: "J",
+    video: "/testimonials/client3.mp4",
+    text: "Professional, creative and highly recommended for every creator.",
   },
 ];
 
 export default function Testimonials() {
-  return (
-    <section id="testimonials" className="py-40 px-6 relative">
 
-      {/* 🔥 HEADING */}
-      <div className="text-center mb-20">
-        <p className="text-gold text-sm tracking-widest mb-2">
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+
+  const toggleVideo = async (index: number) => {
+
+    videoRefs.current.forEach((video, i) => {
+
+      if (!video) return;
+
+      if (i !== index) {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+    });
+
+    const current = videoRefs.current[index];
+
+    if (!current) return;
+
+    if (current.paused) {
+
+      try {
+        await current.play();
+        setPlayingIndex(index);
+      } catch (err) {
+        console.error(err);
+      }
+
+    } else {
+
+      current.pause();
+      setPlayingIndex(null);
+
+    }
+
+  };
+
+  const handleEnded = () => {
+    setPlayingIndex(null);
+  };
+
+  return (
+    <section
+      id="testimonials"
+      className="relative py-36 px-6 overflow-hidden"
+    >
+
+      {/* GOLD GLOW */}
+      <div className="absolute left-1/2 top-40 -translate-x-1/2 w-[700px] h-[700px] bg-[#E8C840]/10 blur-[180px] rounded-full"></div>
+
+      {/* HEADING */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-center mb-20 relative z-10"
+      >
+
+        <p className="text-gold tracking-[0.25em] uppercase text-sm mb-3">
           TESTIMONIALS
         </p>
 
-        <h2 className="text-4xl md:text-6xl font-bold">
-          What Our <span className="text-gold">Clients Say</span>
+        <h2 className="text-4xl md:text-6xl font-bold leading-tight">
+
+          Hear From Our{" "}
+
+          <span className="text-gold">
+            Happy Clients
+          </span>
+
         </h2>
-      </div>
 
-      {/* 🔥 GRID */}
-      <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg leading-relaxed">
 
-        {testimonials.map((item, i) => (
+          Real stories from creators, businesses and brands who trusted
+          <span className="text-white"> You Need This Media </span>
+          to build their digital presence.
+
+        </p>
+
+      </motion.div>
+
+      {/* GRID */}
+
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+
+        {testimonials.map((item, index) => (
+
           <motion.div
-            key={i}
+            key={index}
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.15, duration: 0.6 }}
-            viewport={{ once: false }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.15,
+            }}
+            viewport={{ once: true }}
+            className="group w-full max-w-[340px]"
           >
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 4 + i,
-                ease: "easeInOut",
-              }}
-              className="relative glass p-6 rounded-2xl border border-white/10 hover:border-[#E8C840]/40 hover:shadow-[0_0_50px_rgba(232,200,64,0.2)] transition group"
+
+            <div
+              className={`glass relative overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-2 ${playingIndex === index
+                ? "border-[#E8C840] shadow-[0_0_55px_rgba(232,200,64,0.35)]"
+                : "border-white/10 hover:border-[#E8C840]/50 hover:shadow-[0_0_45px_rgba(232,200,64,0.2)]"
+                }`}
             >
 
-              {/* ⭐ STARS */}
-              <div className="flex gap-1 mb-4">
-                {Array(5)
-                  .fill(0)
-                  .map((_, i) => (
-                    <span key={i} className="text-[#E8C840] text-sm">
+              {/* ================= VIDEO ================= */}
+
+              <div className="relative overflow-hidden bg-black">
+
+                <video
+                  ref={(el) => {
+                    videoRefs.current[index] = el;
+                  }}
+                  src={item.video}
+                  className="w-full h-[360px] object-cover"
+                  playsInline
+                  preload="metadata"
+                  onEnded={handleEnded}
+                  onPlay={() => setPlayingIndex(index)}
+                  onPause={() => {
+                    if (playingIndex === index) {
+                      setPlayingIndex(null);
+                    }
+                  }}
+                />
+
+                {/* DARK OVERLAY */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                {/* PLAY / PAUSE BUTTON */}
+                <motion.button
+                  type="button"
+                  onClick={() => toggleVideo(index)}
+                  initial={{ opacity: 1 }}
+                  animate={{
+                    opacity: playingIndex === index ? 0 : 1,
+                    scale: playingIndex === index ? 0.8 : 1,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                  }}
+                  whileHover={{
+                    scale: 1.08,
+                  }}
+                  whileTap={{
+                    scale: 0.92,
+                  }}
+                  className="absolute inset-0 flex items-center justify-center z-20"
+                >
+
+                  <motion.div
+                    animate={{
+                      boxShadow: [
+                        "0 0 0px rgba(232,200,64,0.4)",
+                        "0 0 25px rgba(232,200,64,0.7)",
+                        "0 0 0px rgba(232,200,64,0.4)",
+                      ],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 2,
+                    }}
+                    className="w-16 h-16 rounded-full bg-[#E8C840] flex items-center justify-center"
+                  >
+
+                    {playingIndex === index ? (
+                      <Pause
+                        size={28}
+                        fill="black"
+                        className="text-black"
+                      />
+                    ) : (
+                      <Play
+                        size={28}
+                        fill="black"
+                        className="text-black ml-1"
+                      />
+                    )}
+
+                  </motion.div>
+
+                </motion.button>
+
+              </div>
+
+              {/* ================= CONTENT ================= */}
+
+              <div className="p-5">
+                {/* ⭐ RATING */}
+                <div className="flex items-center gap-1 mb-4">
+
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{
+                        delay: i * 0.05,
+                        duration: 0.25,
+                      }}
+                      className="text-[#E8C840] text-base"
+                    >
                       ★
-                    </span>
+                    </motion.span>
                   ))}
-              </div>
 
-              {/* TEXT */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                "{item.text}"
-              </p>
-
-              {/* USER */}
-              <div className="flex items-center gap-3">
-
-                {/* AVATAR */}
-                <div className="w-10 h-10 rounded-full bg-[#111] flex items-center justify-center text-[#E8C840] font-semibold">
-                  {item.initial}
                 </div>
 
-                <div>
-                  <p className="text-white font-medium text-sm">
-                    {item.name}
-                  </p>
-                  <p className="text-gray-400 text-xs">
-                    {item.role}
-                  </p>
+                {/* CLIENT REVIEW */}
+                <p className="text-gray-300 text-sm leading-7 min-h-[95px] mb-6">
+
+                  "{item.text}"
+
+                </p>
+
+                {/* DIVIDER */}
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-5"></div>
+
+                {/* CLIENT INFO */}
+                <div className="flex items-center gap-4">
+
+                  {/* AVATAR */}
+                  <motion.div
+                    whileHover={{ rotate: 8, scale: 1.05 }}
+                    className="w-12 h-12 rounded-full bg-gradient-to-br from-[#E8C840] to-yellow-300 flex items-center justify-center text-black font-bold text-lg shadow-[0_0_25px_rgba(232,200,64,0.35)]"
+                  >
+                    {item.name.charAt(0)}
+                  </motion.div>
+
+                  {/* NAME */}
+                  <div>
+
+                    <h3 className="text-white font-semibold text-base">
+
+                      {item.name}
+
+                    </h3>
+
+                    <p className="text-gray-400 text-sm">
+
+                      {item.role}
+
+                    </p>
+
+                  </div>
+
                 </div>
 
-              </div>
+                {/* HOVER SHINE EFFECT */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 pointer-events-none bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
 
-              {/* 🔥 HOVER SHINE */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-transparent via-white/10 to-transparent blur-xl"></div>
+              </div> {/* END CONTENT */}
 
-            </motion.div>
+            </div> {/* END GLASS CARD */}
+
           </motion.div>
+
         ))}
 
       </div>

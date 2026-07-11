@@ -335,12 +335,11 @@ export default function Home() {
 
       <ProcessFlow />
 
-      {/*
-      <ResultsSection />
-
-      <Testimonials />  */}
+     {/* <ResultsSection /> */}
 
       <AboutSection />
+
+      <Testimonials />  
 
       <CTASection />
 

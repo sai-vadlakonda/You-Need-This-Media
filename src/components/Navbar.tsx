@@ -38,12 +38,10 @@ export default function Navbar() {
     const sections = [
       "home",
       "services",
-      "about",
-      "results",
       "process",
+      "about",
       "testimonials",
     ];
-
     const handleScroll = () => {
       let current = "home";
 
@@ -96,10 +94,9 @@ export default function Navbar() {
   };
 
   const linkClass = (id: string) =>
-    `relative px-1 transition ${
-      active === id
-        ? "text-white"
-        : "text-gray-400 hover:text-white"
+    `relative px-1 transition ${active === id
+      ? "text-white"
+      : "text-gray-400 hover:text-white"
     }`;
 
   return (
@@ -109,11 +106,10 @@ export default function Navbar() {
       className="fixed top-4 w-full z-[99999] flex justify-center px-4"
     >
       <div
-        className={`flex items-center justify-between w-full max-w-6xl px-4 md:px-6 py-3 rounded-full border transition-all duration-300 ${
-          scrolled
-            ? "bg-black/70 backdrop-blur-xl border-white/10"
-            : "bg-black/30 backdrop-blur-md border-white/10"
-        }`}
+        className={`flex items-center justify-between w-full max-w-6xl px-4 md:px-6 py-3 rounded-full border transition-all duration-300 ${scrolled
+          ? "bg-black/70 backdrop-blur-xl border-white/10"
+          : "bg-black/30 backdrop-blur-md border-white/10"
+          }`}
       >
         {/* LOGO */}
         <div
@@ -128,7 +124,7 @@ export default function Navbar() {
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-8 text-sm">
-          {["home", "services", "about"].map((item) => (
+          {["home", "services", "about", "testimonials"].map((item) => (
             <button
               key={item}
               onClick={() => handleNav(item)}
@@ -137,9 +133,8 @@ export default function Navbar() {
               {item.charAt(0).toUpperCase() + item.slice(1)}
 
               <span
-                className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
-                  active === item ? "w-full" : "w-0"
-                }`}
+                className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${active === item ? "w-full" : "w-0"
+                  }`}
               />
             </button>
           ))}
@@ -151,9 +146,8 @@ export default function Navbar() {
           >
             Contact Us
             <span
-              className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${
-                active === "contact" ? "w-full" : "w-0"
-              }`}
+              className={`absolute left-0 -bottom-1 h-[2px] bg-[#E8C840] transition-all duration-300 ${active === "contact" ? "w-full" : "w-0"
+                }`}
             />
           </button>
         </div>
@@ -192,6 +186,9 @@ export default function Navbar() {
           <button onClick={() => handleNav("home")}>Home</button>
           <button onClick={() => handleNav("services")}>Services</button>
           <button onClick={() => handleNav("about")}>About</button>
+          <button onClick={() => handleNav("testimonials")}>
+            Testimonials
+          </button>
           <button onClick={() => handleNav("contact")}>Contact Us</button>
 
           {/* 🔥 MOBILE CTA */}

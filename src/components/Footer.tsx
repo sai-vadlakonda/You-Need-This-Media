@@ -106,7 +106,7 @@ export default function Footer() {
               "about",
               "contact",
               //"results",//
-              // "testimonials",//
+              "testimonials",
               "process",
             ].map((item) => (
               <button
