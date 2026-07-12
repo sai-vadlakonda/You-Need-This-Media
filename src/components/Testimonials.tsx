@@ -9,19 +9,19 @@ const testimonials = [
     name: "Dodagatta Nihar",
     role: "codedale",
     video: "/testimonials/client1.mp4",
-    text: "You Need This Media completely transformed our YouTube channel. Their editing quality exceeded every expectation.",
+    text: "You Need This Media consistently delivered engaging, high-quality short-form content that boosted our social media presence. Their creativity, strategic approach, and timely delivery make them an easy recommendation.",
   },
   {
     name: "Vipul",
-    role: "FitLife Brand",
+    role: "Get refactor",
     video: "/testimonials/client2.mp4",
-    text: "Our social media growth exploded after working with the team.",
+    text: "You Need This Media played a key role in strengthening our content and marketing strategy. Their creative videos helped us reach a wider audience and grow our brand effectively.",
   },
   {
     name: "Khader",
-    role: "StartupGrow",
+    role: "Get refactor",
     video: "/testimonials/client3.mp4",
-    text: "Professional, creative and highly recommended for every creator.",
+    text: "Working with You Need This Media was a great experience. Their professionalism and high-quality work make them an easy recommendation.",
   },
 ];
 
