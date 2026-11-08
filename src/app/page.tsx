@@ -112,7 +112,7 @@ export default function Home() {
           <button
              onClick={() =>
               window.open(
-                "https://calendly.com/youneedthismedia-info/30min",
+                "https://calendly.com/dhatlasairam/30min",
                 "_blank"
               )
             }

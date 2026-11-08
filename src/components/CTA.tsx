@@ -51,7 +51,7 @@ export default function FinalCTA() {
               whileTap={{ scale: 0.95 }}
                onClick={() =>
               window.open(
-                "https://calendly.com/youneedthismedia-info/30min",
+                "https://calendly.com/dhatlasairam/30min",
                 "_blank"
               )
             }

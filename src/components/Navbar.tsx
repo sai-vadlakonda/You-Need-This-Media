@@ -157,7 +157,7 @@ export default function Navbar() {
           <button
             onClick={() =>
               window.open(
-                "https://calendly.com/youneedthismedia-info/30min",
+                "https://calendly.com/dhatlasairam/30min",
                 "_blank"
               )
             }
@@ -195,7 +195,7 @@ export default function Navbar() {
           <button
             onClick={() =>
               window.open(
-                "https://calendly.com/youneedthismedia-info/30min",
+                "https://calendly.com/dhatlasairam/30min",
                 "_blank"
               )
             }
